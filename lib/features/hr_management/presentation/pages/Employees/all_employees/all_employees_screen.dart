@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
-import 'package:hr_management_new/core/util/size_utils/size_utils.dart';
+import 'package:hr_management_new/config/routes/app_routes.dart';
+import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
 
 List<String> employeeDesignationList = [
@@ -43,7 +44,7 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                               borderRadius: BorderRadius.circular(20)),
                         ),
                         onPressed: () {
-                         // NavigatorService.pushNamed();
+                          NavigatorService.pushNamed(AppRoutes.newEmployeeAddScreen);
                         },
                         icon: const Icon(Icons.add),
                         label: const Text("Add Employee"),

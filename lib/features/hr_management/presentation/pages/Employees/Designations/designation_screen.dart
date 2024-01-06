@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/Designations/widgets/add_designation_bottomsheet_widget.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
 
 
 
 class DesignationScreen extends StatelessWidget {
   DesignationScreen({Key? key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +29,18 @@ class DesignationScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // showModalBottomSheet(
-                  //   shape: const RoundedRectangleBorder(
-                  //     borderRadius: BorderRadius.only(
-                  //       topLeft: Radius.circular(20),
-                  //       topRight: Radius.circular(20),
-                  //     ),
-                  //   ),
-                  //   context: context,
-                  //   builder: (context) {
-                  //     return AddDesignationBottomSheetWidget();
-                  //   },
-                  // );
+                  showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    context: context,
+                    builder: (context) {
+                      return AddDesignationBottomSheetWidget(departmentData: [],);
+                    },
+                  );
                 },
                 icon: const Icon(Icons.add),
                 label: CustomTextWidget01(

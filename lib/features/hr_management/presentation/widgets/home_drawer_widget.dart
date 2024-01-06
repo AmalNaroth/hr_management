@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
-import 'package:hr_management_new/core/util/routes/app_routes.dart';
-import 'package:hr_management_new/core/util/size_utils/size_utils.dart';
+import 'package:hr_management_new/config/routes/app_routes.dart';
+import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
 
 class DrawerCardWidget extends StatelessWidget {

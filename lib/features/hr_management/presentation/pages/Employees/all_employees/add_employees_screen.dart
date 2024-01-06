@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:hr_management_new/core/util/size_utils/size_utils.dart';
+import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:hr_management_new/core/util/textediting_controlles.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/all_employees/widgets/department_select_widget.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/all_employees/widgets/designation_select_widget.dart';

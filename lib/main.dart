@@ -3,8 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hr_management_new/core/dependency_injection/injectable.dart';
 import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
-import 'package:hr_management_new/core/util/routes/app_routes.dart';
-import 'package:hr_management_new/core/util/size_utils/size_utils.dart';
+import 'package:hr_management_new/config/routes/app_routes.dart';
+import 'package:hr_management_new/config/size_utils/size_utils.dart';
+import 'package:hr_management_new/features/hr_management/application/bloc/department/department_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/sign_in/signin_bloc.dart';
 import 'firebase_options.dart';
 
@@ -30,7 +31,12 @@ class MyApp extends StatelessWidget {
     mWidth = _result.width;
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<SigninBloc>(),)
+        BlocProvider(
+          create: (context) => getIt<SigninBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<DepartmentBloc>(),
+        ),
       ],
       child: MaterialApp(
         navigatorKey: NavigatorService.navigatorKey,

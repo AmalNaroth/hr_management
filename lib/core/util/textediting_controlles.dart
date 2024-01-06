@@ -25,24 +25,11 @@ class AddNewEmployeeTextEditingControlls {
       TextEditingController();
 }
 
-class DesignationScreenTextEditingControllers {
-//  static String selectedDesignation = "";
-//  static set selectedDesignationSet(String id){
-//   selectedDesignation = id;
-//  }
-//  static String selectedDepartment = "";
-//  static set selectedDepartmentSet(String departmentName){
-//   selectedDepartment = departmentName;
-//  }
-
-  // static DepartmentModel? departmentData;
-
-  // static final TextEditingController designationController =
-  //     TextEditingController();
-
-  // static set selectedDepartment(DepartmentModel data) {
-  //   departmentData = data;
-  // }
+class DesignationControllers {
+  static TextEditingController designationControllers = TextEditingController();
 }
 
-class AllEmployeesControllers {}
+
+class DepartmentControllers {
+  static TextEditingController departmentController = TextEditingController();
+}

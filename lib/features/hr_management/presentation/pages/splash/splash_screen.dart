@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
-import 'package:hr_management_new/core/util/routes/app_routes.dart';
+import 'package:hr_management_new/config/routes/app_routes.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
 
 class SplashScreen extends StatefulWidget {
