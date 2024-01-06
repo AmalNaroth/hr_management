@@ -1,0 +1,151 @@
+import 'package:flutter/material.dart';
+import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
+import 'package:hr_management_new/core/util/routes/app_routes.dart';
+import 'package:hr_management_new/core/util/size_utils/size_utils.dart';
+import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
+
+class DrawerCardWidget extends StatelessWidget {
+  const DrawerCardWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: Colors.blue,
+        child: ListView(
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  fHight20,
+                  buildHeader(context, name: "Naro Tech", email: "fijnf"),
+                  fHight20,
+                  buildMenuItem(context,
+                      title: "Dashboard",
+                      icon: Icons.dashboard,
+                      pages: Pages.Dashboard),
+                  buildMenuItem(context,
+                      title: "All Employees",
+                      icon: Icons.dashboard,
+                      pages: Pages.AllEmployees),
+                  buildMenuItem(context,
+                      title: "Holydays",
+                      icon: Icons.dashboard,
+                      pages: Pages.Holydays),
+                  buildMenuItem(context,
+                      title: "Leaves",
+                      icon: Icons.dashboard,
+                      pages: Pages.Leaves),
+                  buildMenuItem(context,
+                      title: "Attendence",
+                      icon: Icons.dashboard,
+                      pages: Pages.Attendence),
+                  buildMenuItem(context,
+                      title: "Department",
+                      icon: Icons.dashboard,
+                      pages: Pages.Department),
+                  buildMenuItem(context,
+                      title: "Designation",
+                      icon: Icons.dashboard,
+                      pages: Pages.Designation),
+                  fHight20,
+                  Divider(
+                    color: Colors.white,
+                    thickness: 1,
+                  ),
+                  fHight20,
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildMenuItem(BuildContext context,
+      {required String title, required IconData icon, required Pages pages}) {
+    final Color color = Colors.white;
+    return Material(
+      color: Colors.transparent,
+      child: ListTile(
+        title: CustomTextWidget01(textValue: title, fontColors: color),
+        leading: Icon(icon, color: color),
+        onTap: () {
+          switch (pages) {
+            case Pages.Dashboard:
+              NavigatorService.popAndPushNamed(AppRoutes.homeScreen);
+            case Pages.AllEmployees:
+              NavigatorService.popAndPushNamed(AppRoutes.allEmployeesScreen);
+            case Pages.Holydays:
+              NavigatorService.popAndPushNamed(AppRoutes.holidayScreen);
+            case Pages.Leaves:
+              NavigatorService.popAndPushNamed(AppRoutes.employeesLeave);
+            case Pages.Attendence:
+              NavigatorService.popAndPushNamed(
+                  AppRoutes.employeesAttendanceScreen);
+            case Pages.Department:
+              NavigatorService.popAndPushNamed(AppRoutes.departmentScreen);
+            case Pages.Designation:
+              NavigatorService.popAndPushNamed(AppRoutes.designationScreen);
+          }
+        },
+      ),
+    );
+  }
+
+  Widget buildHeader(
+    BuildContext context, {
+    required String name,
+    required String email,
+  }) =>
+      Material(
+        color: Colors.transparent,
+        child: InkWell(
+          child: Container(
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  child: FlutterLogo(),
+                ),
+                SizedBox(width: 20),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      email,
+                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Color.fromRGBO(30, 60, 168, 1),
+                  child: Icon(Icons.add_comment_outlined, color: Colors.white),
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+}
+
+enum Pages {
+  Dashboard,
+  AllEmployees,
+  Holydays,
+  Leaves,
+  Attendence,
+  Department,
+  Designation
+}

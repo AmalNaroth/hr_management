@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1087891208803",
+    "firebase_url": "https://hr-management-5a124-default-rtdb.firebaseio.com",
+    "project_id": "hr-management-5a124",
+    "storage_bucket": "hr-management-5a124.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087891208803:android:195d5f84c95fd31504d656",
+        "android_client_info": {
+          "package_name": "com.example.hr_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087891208803-mr9f67a83pbsrjmtpvqirvt7c6o54228.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsy0b-fsDcJgs1nSrm53igVU5JH3KE4II"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087891208803-mr9f67a83pbsrjmtpvqirvt7c6o54228.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087891208803:android:f8796cb081a03c1a04d656",
+        "android_client_info": {
+          "package_name": "com.example.hr_management_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087891208803-mr9f67a83pbsrjmtpvqirvt7c6o54228.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsy0b-fsDcJgs1nSrm53igVU5JH3KE4II"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087891208803-mr9f67a83pbsrjmtpvqirvt7c6o54228.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
