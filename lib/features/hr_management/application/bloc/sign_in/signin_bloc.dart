@@ -13,18 +13,18 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     on<SignInButtonClicked>(
       (event, emit) async {
         emit(
-          LoadingState(),
+          SigninLoadingState(),
         );
         final result = await signInInstance.signInMethod(
             email: event.hrEmail, password: event.password);
 
         if (result is DataSuccess) {
           emit(
-            SuccessState(message: result.data.toString(),),
+            SigninSuccessState(message: result.data.toString(),),
           );
         } else {
           emit(
-            ErrorState(message: result.error.toString(),),
+            SigninErrorState(message: result.error.toString(),),
           );
         }
       },

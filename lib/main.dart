@@ -6,6 +6,8 @@ import 'package:hr_management_new/core/util/navigator_service/navigator_services
 import 'package:hr_management_new/config/routes/app_routes.dart';
 import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/department/department_bloc.dart';
+import 'package:hr_management_new/features/hr_management/application/bloc/designation/designation_bloc.dart';
+import 'package:hr_management_new/features/hr_management/application/bloc/employees/employees_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/sign_in/signin_bloc.dart';
 import 'firebase_options.dart';
 
@@ -22,8 +24,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
     final _result = MediaQuery.of(context).size;
@@ -36,6 +37,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getIt<DepartmentBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<DesignationBloc>(),
+        ),
+         BlocProvider(
+          create: (context) => getIt<EmployeesBloc>(),
         ),
       ],
       child: MaterialApp(

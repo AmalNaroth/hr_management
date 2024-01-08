@@ -2,24 +2,24 @@
 import 'package:equatable/equatable.dart';
 
 class NewEmployeeModelEntity extends Equatable {
-  NewEmployeeModelEntity({
-    required this.firstName,
-    required this.lastName,
-    required this.userName,
-    required this.userEmail,
-    required this.userPassword,
-    required this.employeeId,
-    required this.joinDate,
-    required this.department,
-    required this.designation,
-    required this.imageFile,
-    required this.id
-  });
-  String id;
+  NewEmployeeModelEntity(
+      {required this.firstName,
+      required this.lastName,
+      required this.userName,
+      required this.userEmail,
+      required this.userPassword,
+      required this.employeeId,
+      required this.joinDate,
+      required this.department,
+      required this.designation,
+      required this.imageFile,
+      required this.id});
+
   String department;
   String designation;
   String employeeId;
   String firstName;
+  String id;
   String imageFile;
   String joinDate;
   String lastName;
@@ -27,7 +27,7 @@ class NewEmployeeModelEntity extends Equatable {
   String userName;
   String userPassword;
 
-    @override
+  @override
   List<Object?> get props => [
         this.id,
         this.firstName,

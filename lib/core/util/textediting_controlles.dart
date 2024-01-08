@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 
-class AddNewEmployeeTextEditingControlls {
+class EmployeesControlls {
   static final TextEditingController conformPasswordController =
       TextEditingController();
 
-  static String? departmentController;
   static final TextEditingController emailController = TextEditingController();
   static final TextEditingController employeeId = TextEditingController();
   static final TextEditingController firstNameController =
       TextEditingController();
 
   static final formKey = GlobalKey<FormState>();
-  static String? joiningDateController;
+  static String joiningDateController = "";
+  set joiningDateControllerSet(String value){
+    joiningDateController = value;
+  }
   static final TextEditingController lastNameController =
       TextEditingController();
 
+        static String newSelectedDepartment = "";
+  static String newSelectedDesignation = "";
   static final TextEditingController passwordController =
       TextEditingController();
 
@@ -23,12 +27,24 @@ class AddNewEmployeeTextEditingControlls {
 
   static final TextEditingController userNameController =
       TextEditingController();
+
+  static set newSelectedDepartmentSet(String value) {
+    newSelectedDepartment = value;
+  }
+
+  static set newSelectedDesignationSet(String value) {
+    newSelectedDesignation = value;
+  }
 }
 
 class DesignationControllers {
+  static String? departmentController;
   static TextEditingController designationControllers = TextEditingController();
-}
 
+  static set departmentControllerSet(String data) {
+    departmentController = data;
+  }
+}
 
 class DepartmentControllers {
   static TextEditingController departmentController = TextEditingController();

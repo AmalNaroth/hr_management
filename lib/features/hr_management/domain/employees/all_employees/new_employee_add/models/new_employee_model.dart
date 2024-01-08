@@ -1,5 +1,4 @@
 import 'package:hr_management_new/features/hr_management/domain/entities/new_employee_model.dart';
-import 'package:uuid/uuid.dart';
 
 class NewEmployeeModel extends NewEmployeeModelEntity {
   NewEmployeeModel({
@@ -43,21 +42,6 @@ class NewEmployeeModel extends NewEmployeeModelEntity {
     );
   }
 
-  @override
-  List<Object?> get props => [
-        id,
-        firstName,
-        lastName,
-        userName,
-        userEmail,
-        userPassword,
-        employeeId,
-        joinDate,
-        department,
-        designation,
-        imageFile
-      ];
-
   factory NewEmployeeModel.generate({
     required String firstName,
     required String lastName,
@@ -68,21 +52,20 @@ class NewEmployeeModel extends NewEmployeeModelEntity {
     required String joinDate,
     required String department,
     required String designation,
-    required String imageFile,
+    String? imageFile,
   }) {
-    final String id = const Uuid().v1();
     return NewEmployeeModel(
-      id: id,
+      id: employeeId,
       firstName: firstName,
       lastName: lastName,
       userName: userName,
       userEmail: userEmail,
       userPassword: userPassword,
       employeeId: employeeId,
-      joinDate: joinDate, // Convert String to DateTime
+      joinDate: joinDate,
       department: department,
       designation: designation,
-      imageFile: imageFile,
+      imageFile: imageFile ?? "",
     );
   }
 
@@ -97,6 +80,21 @@ class NewEmployeeModel extends NewEmployeeModelEntity {
   String userEmail;
   String userName;
   String userPassword;
+
+  @override
+  List<Object?> get props => [
+        id,
+        firstName,
+        lastName,
+        userName,
+        userEmail,
+        userPassword,
+        employeeId,
+        joinDate,
+        department,
+        designation,
+        imageFile
+      ];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

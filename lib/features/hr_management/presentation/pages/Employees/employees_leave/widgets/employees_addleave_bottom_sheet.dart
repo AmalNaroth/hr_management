@@ -28,15 +28,15 @@ class EmployeeAddLeaveBottomSheet extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             fHight20,
-            CustomDropDownButton01(
-                listItems: [
-                  "Sick Leave",
-                  "Personal Leave",
-                  "Unpaid Leave"
-                ],
-                title: "Leave Type",
-                hintText: "Select Leave Type",
-                ),
+            // CustomDropDownButton01(
+            //     listItems: [
+            //       "Sick Leave",
+            //       "Personal Leave",
+            //       "Unpaid Leave"
+            //     ],
+            //     title: "Leave Type",
+            //     hintText: "Select Leave Type",
+            //     ),
             CustomCalenderFormField(
               fieldTitle: "From",
             ),

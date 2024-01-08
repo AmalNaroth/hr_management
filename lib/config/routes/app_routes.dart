@@ -27,9 +27,7 @@ class AppRoutes {
         AppRoutes.signInScreen: (context) => SignInScreen(),
         AppRoutes.splashScreen: (context) => const SplashScreen(),
         AppRoutes.homeScreen: (context) => const DashBoardScreen(),
-        AppRoutes.allEmployeesScreen: (context) => const AllEmployeesScreen(),
-        AppRoutes.newEmployeeAddScreen: (context) =>
-            const AddNewEmployeeScreen(),
+        AppRoutes.allEmployeesScreen: (context) => AllEmployeesScreen(),
         AppRoutes.holidayScreen: (context) => const HolidayScreen(),
         AppRoutes.employeesLeave: (context) => EmployeesLeaveScreen(),
         AppRoutes.employeesAttendanceScreen: (context) =>

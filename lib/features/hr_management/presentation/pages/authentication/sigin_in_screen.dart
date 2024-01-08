@@ -185,13 +185,13 @@ class SignInScreen extends StatelessWidget {
                         },
                         child: BlocConsumer<SigninBloc, SigninState>(
                           listener: (context, state) {
-                            if (state is SuccessState) {
+                            if (state is SigninSuccessState) {
                               customSnackBar(state.message, context);
                               NavigatorService.pushNamedAndRemoveUntil(
                                   AppRoutes.homeScreen);
                                   _emailController.clear();
                                   _passwordController.clear();
-                            } else if (state is ErrorState) {
+                            } else if (state is SigninErrorState) {
                               customSnackBar(state.message, context);
                             }
                           },
@@ -201,7 +201,7 @@ class SignInScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  if (state is LoadingState)
+                                  if (state is SigninLoadingState)
                                     const Center(
                                       child: CircularProgressIndicator(),
                                     )

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,42 +7,13 @@ import 'package:image_picker/image_picker.dart';
 XFile? imagePath;
 
 class ImagePickerWidget extends StatefulWidget {
-  ImagePickerWidget({Key? key}) : super(key: key);
+  const ImagePickerWidget({Key? key}) : super(key: key);
 
   @override
-  _ImagePickerWidgetState createState() => _ImagePickerWidgetState();
+   _ImagePickerWidgetState createState() => _ImagePickerWidgetState();
 }
 
 class _ImagePickerWidgetState extends State<ImagePickerWidget> {
-  // Change File to XFile
-  bool _imageSelect = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        getImge(context);
-      },
-      child: CircleAvatar(
-        radius: mWidth! * .18,
-        backgroundColor: Colors.transparent,
-        backgroundImage: imagePath == null
-            ? AssetImage("assets/images/userImage.jpg")
-            : null,
-        child: imagePath != null
-            ? ClipOval(
-                child: Image.file(
-                  File(imagePath!.path), // Convert XFile to File
-                  width: mWidth! * .18 * 2,
-                  height: mWidth! * .18 * 2,
-                  fit: BoxFit.cover,
-                ),
-              )
-            : null,
-      ),
-    );
-  }
-
   Future<void> getImge(BuildContext context) async {
     showDialog(
       context: context,
@@ -52,50 +23,38 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
           actionsAlignment: MainAxisAlignment.center,
           title: const Text("Select your choice"),
           actions: [
-            GestureDetector(
-              onTap: () async {
+            IconButton(
+              onPressed: () async {
                 final _image =
                     await ImagePicker().pickImage(source: ImageSource.camera);
                 if (_image != null) {
                   setState(() {
                     imagePath = _image;
-                    _imageSelect = false;
                   });
                   Navigator.of(context).pop();
                 }
               },
-              child: Container(
-                height: 100,
-                width: 100,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      "assets/images/camera_image.jpg",
-                    ),
-                  ),
-                ),
+              icon: Image.asset(
+                "assets/images/camera_image.jpg",
+                height: 80,
+                width: 80,
               ),
             ),
-            GestureDetector(
-              onTap: () async {
+            IconButton(
+              onPressed: () async {
                 final _image =
                     await ImagePicker().pickImage(source: ImageSource.gallery);
                 if (_image != null) {
                   setState(() {
                     imagePath = _image;
-                    _imageSelect = false;
                   });
                   Navigator.of(context).pop();
                 }
               },
-              child: Container(
+              icon: Image.asset(
+                "assets/images/gallery_image.jpg",
                 height: 80,
                 width: 80,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/gallery_image.jpg"),
-                  ),
-                ),
               ),
             ),
           ],
@@ -103,4 +62,43 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       },
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    double circleAvatarRadius =
+        50.0; // Replace with a specific value or calculation
+
+    return GestureDetector(
+      onTap: () {
+        getImge(context);
+      },
+      child: CircleAvatar(
+        radius: circleAvatarRadius,
+        backgroundColor: Colors.transparent,
+        backgroundImage: imagePath == null
+            ? AssetImage("assets/images/userImage.jpg")
+            : null,
+        child: imagePath != null
+            ? ClipOval(
+                child: Image.file(
+                  File(imagePath!.path),
+                  width: mWidth! * .18,
+                  height: mWidth! * .18,
+                  fit: BoxFit.cover,
+                ),
+              )
+            : null,
+      ),
+    );
+  }
+}
+
+Future<Uint8List> selectImage() async {
+  Uint8List? img;
+
+  if (imagePath != null) {
+    img = await imagePath!.readAsBytes();
+  }
+
+  return img!;
 }

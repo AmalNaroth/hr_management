@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
-import 'package:hr_management_new/config/routes/app_routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hr_management_new/config/size_utils/size_utils.dart';
+import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
+import 'package:hr_management_new/core/util/textediting_controlles.dart';
+import 'package:hr_management_new/features/hr_management/application/bloc/employees/employees_bloc.dart';
+import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/all_employees/add_employees_screen.dart';
+import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/all_employees/employees_profile.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
 
-List<String> employeeDesignationList = [
-  "Web Developer",
-  "Web Designer",
-  "Android Developer",
-  "IOS Developer",
-  "Flutter Developer",
-];
+Map<String, List<String>> departmentMap = {};
 
 class AllEmployeesScreen extends StatefulWidget {
   const AllEmployeesScreen({super.key});
@@ -21,11 +19,18 @@ class AllEmployeesScreen extends StatefulWidget {
 
 class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
   @override
+  void initState() {
+    context.read<EmployeesBloc>().add(
+          EmployeesInitlaEvent(),
+        );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
+        appBar: AppBar(),
+        body: SingleChildScrollView(
           child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Column(
@@ -44,7 +49,12 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                               borderRadius: BorderRadius.circular(20)),
                         ),
                         onPressed: () {
-                          NavigatorService.pushNamed(AppRoutes.newEmployeeAddScreen);
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => AddNewEmployeeScreen(
+                                  departmentMap: departmentMap),
+                            ),
+                          );
                         },
                         icon: const Icon(Icons.add),
                         label: const Text("Add Employee"),
@@ -64,26 +74,22 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                   ),
                   fHight20,
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                     ),
                     hint: const Text("Select Designation"),
-                    items: employeeDesignationList.map((e) {
-                      return DropdownMenuItem(
-                        child: Text(e),
-                        value: e,
-                      );
-                    }).toList(),
+                    items: const [],
                     onChanged: (value) {},
                   ),
                   fHight20,
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        fixedSize: Size.fromHeight(50)),
+                      backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      fixedSize: const Size.fromHeight(50),
+                    ),
                     onPressed: () {},
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,72 +99,113 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                     ),
                   ),
                   fHight20,
-                  GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 1),
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: Container(
-                          width: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  PopupMenuButton(
-                                    itemBuilder: (context) {
-                                      return [
-                                        PopupMenuItem(
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.edit),
-                                              fWidth10,
-                                              Text("Edit"),
-                                            ],
-                                          ),
+
+                  //bloc implemented
+                  BlocConsumer<EmployeesBloc, EmployeesState>(
+                    listener: (context, state) {
+                      if (state is EmployeesInitialState) {
+                        departmentMap = state.departmentMap;
+                      } else if (state is EmployeesSuccessState) {
+                        EmployeesControlls.conformPasswordController.clear();
+                        EmployeesControlls.firstNameController.clear();
+                        EmployeesControlls.lastNameController.clear();
+                        EmployeesControlls.userNameController.clear();
+                        EmployeesControlls.emailController.clear();
+                        EmployeesControlls.passwordController.clear();
+                        EmployeesControlls.employeeId.clear();
+                        NavigatorService.goBack();
+                        CustomTextWidget01(textValue: state.successMessage);
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is EmployeesInitialState) {
+                        return GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.employeeListData.length,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, childAspectRatio: 1),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                         EmployeesProfile(data: state.employeeListData[index]),
+                                  ),
+                                );
+                              },
+                              child: Card(
+                                child: SizedBox(
+                                  width: 100,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          PopupMenuButton(
+                                            itemBuilder: (context) {
+                                              return [
+                                                const PopupMenuItem(
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.edit),
+                                                      fWidth10,
+                                                      Text("Edit"),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const PopupMenuItem(
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.delete),
+                                                      fWidth10,
+                                                      Text("Delete"),
+                                                    ],
+                                                  ),
+                                                )
+                                              ];
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                      CircleAvatar(
+                                        radius: mWidth! * .08,
+                                        backgroundImage: NetworkImage(
+                                          state.employeeListData[index]
+                                              .imageFile,
                                         ),
-                                        PopupMenuItem(
-                                            child: Row(
-                                          children: [
-                                            Icon(Icons.delete),
-                                            fWidth10,
-                                            Text("Delete"),
-                                          ],
-                                        ))
-                                      ];
-                                    },
-                                  )
-                                ],
+                                      ),
+                                      fHight10,
+                                      CustomTextWidget01(
+                                          textValue: state
+                                              .employeeListData[index].userName,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                      fHight5,
+                                      CustomTextWidget01(
+                                        textValue: state
+                                            .employeeListData[index].department,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              CircleAvatar(
-                                radius: mWidth! * .08,
-                                child: FlutterLogo(),
-                              ),
-                              fHight10,
-                              CustomTextWidget01(
-                                  textValue: "John Doe",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                              fHight5,
-                              CustomTextWidget01(
-                                textValue: "Web Designer",
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
+                            );
+                          },
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
                     },
                   )
                 ],
               )),
-        ),
-      ),
-     // drawer: const DrawerCardWidget(),
-    );
+        )
+        // drawer: const DrawerCardWidget(),
+        );
   }
 }

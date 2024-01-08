@@ -9,14 +9,14 @@ sealed class SigninState extends Equatable {
 
 final class SigninInitial extends SigninState {}
 
-final class LoadingState extends SigninState {}
+final class SigninLoadingState extends SigninState {}
 
-final class ErrorState extends SigninState {
+final class SigninErrorState extends SigninState {
   String message;
-  ErrorState({required this.message});
+  SigninErrorState({required this.message});
 }
 
-final class SuccessState extends SigninState {
+final class SigninSuccessState extends SigninState {
   String message;
-  SuccessState({required this.message});
+  SigninSuccessState({required this.message});
 }

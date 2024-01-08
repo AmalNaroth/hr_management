@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:hr_management_new/core/util/textediting_controlles.dart';
+import 'package:hr_management_new/features/hr_management/application/bloc/designation/designation_bloc.dart';
 import 'package:hr_management_new/features/hr_management/domain/entities/department_entity.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/widgets/custom_dropdown_button01.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/widgets/custom_textformfield_02.dart';
@@ -36,7 +38,16 @@ class AddDesignationBottomSheetWidget extends StatelessWidget {
               ),
             ),
             onPressed: () {
-             
+              context.read<DesignationBloc>().add(
+                    DesignationSubmitEvent(
+                      departmnetName:
+                          DesignationControllers.departmentController ??
+                              "No department added",
+                      designationName: DesignationControllers
+                          .designationControllers.text
+                          .trim(),
+                    ),
+                  );
             },
             child: CustomTextWidget01(
                 textValue: "Submit",
