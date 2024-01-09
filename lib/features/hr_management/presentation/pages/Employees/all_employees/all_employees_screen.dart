@@ -131,8 +131,8 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                               onTap: () {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                         EmployeesProfile(data: state.employeeListData[index]),
+                                    builder: (context) => EmployeesProfile(
+                                        data: state.employeeListData[index]),
                                   ),
                                 );
                               },

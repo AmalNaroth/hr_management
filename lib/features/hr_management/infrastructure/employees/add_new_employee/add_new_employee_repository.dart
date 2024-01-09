@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hr_management_new/core/resources/data_state.dart';
 import 'package:hr_management_new/features/hr_management/domain/employees/all_employees/new_employee_add/models/new_employee_model.dart';
 import 'package:hr_management_new/features/hr_management/domain/employees/all_employees/new_employee_services.dart';
@@ -35,6 +35,18 @@ class NewEmployeeAddRepository implements NewEmployeeAddServices {
       return DataSuccess(instance);
     } catch (e) {
       return DataFailed(e as FirebaseException);
+    }
+  }
+
+  @override
+  Future<DataState> newUserAuth(String userEmail, String userPassword) async {
+    try {
+      final response = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: userEmail, password: userPassword);
+      return DataSuccess(response.user!.uid);
+    } catch (err) {
+      return DataFailed(err as FirebaseException);
     }
   }
 }

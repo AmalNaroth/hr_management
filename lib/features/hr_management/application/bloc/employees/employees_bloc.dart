@@ -53,8 +53,9 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
       (event, emit) async {
         final imageUrl =
             await uplodImageStorage(event.imageData, event.newEmployeeData.id);
+        final uuid = await employeeInstance.newUserAuth(event.newEmployeeData.userEmail, event.newEmployeeData.userPassword);        
         final instance = NewEmployeeModel(
-            id: event.newEmployeeData.id,
+            id: uuid.data,
             firstName: event.newEmployeeData.firstName,
             lastName: event.newEmployeeData.lastName,
             userName: event.newEmployeeData.userName,
@@ -73,7 +74,8 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
 
         if (result is DataSuccess &&
             getResult is DataSuccess &&
-            reponse is DataSuccess) {
+            reponse is DataSuccess &&
+            uuid is DataSuccess) {
           for (DesignationEntity item in result.data!) {
             String department = item.department;
             String designation = item.name;

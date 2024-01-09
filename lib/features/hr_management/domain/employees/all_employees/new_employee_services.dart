@@ -6,4 +6,6 @@ abstract class NewEmployeeAddServices {
   Future<DataState> newEmployeeAdd(NewEmployeeModel value);
 
   Future<DataState> getDataFromDB();
+
+  Future<DataState> newUserAuth(String userEmail,String userPassword);
 }
