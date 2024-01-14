@@ -8,6 +8,7 @@ import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/department/department_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/designation/designation_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/employees/employees_bloc.dart';
+import 'package:hr_management_new/features/hr_management/application/bloc/holiday/holiday_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/sign_in/signin_bloc.dart';
 import 'firebase_options.dart';
 
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
          BlocProvider(
           create: (context) => getIt<EmployeesBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<HolidayBloc>(),
         ),
       ],
       child: MaterialApp(

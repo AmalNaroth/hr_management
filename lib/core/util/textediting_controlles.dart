@@ -11,13 +11,14 @@ class EmployeesControlls {
 
   static final formKey = GlobalKey<FormState>();
   static String joiningDateController = "";
-  set joiningDateControllerSet(String value){
+  set joiningDateControllerSet(String value) {
     joiningDateController = value;
   }
+
   static final TextEditingController lastNameController =
       TextEditingController();
 
-        static String newSelectedDepartment = "";
+  static String newSelectedDepartment = "";
   static String newSelectedDesignation = "";
   static final TextEditingController passwordController =
       TextEditingController();
@@ -48,4 +49,17 @@ class DesignationControllers {
 
 class DepartmentControllers {
   static TextEditingController departmentController = TextEditingController();
+}
+
+class HolidayControllers {
+  static TextEditingController titleController = TextEditingController();
+  static String? holidayDate;
+  set holidayDateSet(String value) {
+    holidayDate = value;
+  }
+
+  static String? holiday;
+  set holidaySet(String value) {
+    holidayDate = value;
+  }
 }

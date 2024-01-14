@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Colors.black,
       body: Center(
         child: CustomTextWidget01(
-            textValue: "N A R O T E C H",
+            textValue: "S A V A R I",
             fontColors: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 30),

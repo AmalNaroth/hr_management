@@ -53,7 +53,7 @@ class EmployeeAddLeaveBottomSheet extends StatelessWidget {
             ),
             fHight10,
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               height: 60,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -79,7 +79,7 @@ class EmployeeAddLeaveBottomSheet extends StatelessWidget {
             ),
             fHight10,
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               height: 60,
               width: double.infinity,
               decoration: BoxDecoration(
@@ -105,29 +105,29 @@ class EmployeeAddLeaveBottomSheet extends StatelessWidget {
             ),
             fHight10,
             TextFormField(
-              
               keyboardType: TextInputType.multiline,
               minLines: 5, //Normal textInputField will be displayed
               maxLines: 5,
-              decoration: InputDecoration(border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10)
-              ),),
+              decoration: InputDecoration(
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              ),
             ),
             fHight30,
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-                fixedSize: Size(250, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)
-                )
-              ),
+                  backgroundColor: Colors.orange,
+                  fixedSize: const Size(250, 50),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20))),
               onPressed: () {
                 NavigatorService.goBack();
               },
-              child: CustomTextWidget01(textValue: "Submit",fontSize: 17,
-              fontColors: Colors.white,
-              fontWeight: FontWeight.bold),
+              child: CustomTextWidget01(
+                  textValue: "Submit",
+                  fontSize: 17,
+                  fontColors: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
             fHight30,
           ],

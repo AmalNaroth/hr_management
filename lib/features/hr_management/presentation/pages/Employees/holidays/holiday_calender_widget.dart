@@ -4,22 +4,21 @@ import 'package:hr_management_new/core/util/textediting_controlles.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
 import 'package:intl/intl.dart';
 
-class CustomCalenderFormField extends StatefulWidget {
+class HolidayCalender extends StatefulWidget {
   final String fieldTitle;
   bool isValidate = false;
   DateTime? selectedDateTime;
 
-  CustomCalenderFormField({
+  HolidayCalender({
     Key? key,
     required this.fieldTitle,
   }) : super(key: key);
 
   @override
-  State<CustomCalenderFormField> createState() =>
-      _CustomCalenderFormFieldState();
+  State<HolidayCalender> createState() => _HolidayCalenderState();
 }
 
-class _CustomCalenderFormFieldState extends State<CustomCalenderFormField> {
+class _HolidayCalenderState extends State<HolidayCalender> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -89,8 +88,9 @@ class _CustomCalenderFormFieldState extends State<CustomCalenderFormField> {
       setState(() {
         widget.isValidate = false;
         widget.selectedDateTime = pickedDate;
-        EmployeesControlls.joiningDateController =
+        HolidayControllers.holidayDate =
             DateFormat("dd MMM yyyy").format(pickedDate);
+        HolidayControllers.holiday = DateFormat('EEEE').format(pickedDate);
       });
     }
   }
