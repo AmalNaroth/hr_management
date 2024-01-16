@@ -4,6 +4,7 @@ import 'package:hr_management_new/config/size_utils/size_utils.dart';
 import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
 import 'package:hr_management_new/core/util/textediting_controlles.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/employees/employees_bloc.dart';
+import 'package:hr_management_new/features/hr_management/domain/entities/new_employee_model.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/all_employees/add_employees_screen.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/Employees/all_employees/employees_profile.dart';
 import 'package:hr_management_new/features/hr_management/presentation/pages/widgets/custom_text_widget01.dart';
@@ -39,14 +40,16 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomTextWidget01(
-                          textValue: "Employee",
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600),
+                        textValue: "Employee",
+                        fontSize: 23,
+                        fontWeight: FontWeight.w600,
+                      ),
                       ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orange,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                         onPressed: () {
                           Navigator.of(context).push(
@@ -63,23 +66,11 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                   ),
                   fHight30,
                   TextFormField(
+                    controller: EmployeesControlls.seachEmployeeController,
                     decoration: const InputDecoration(
-                        hintText: "Employee ID", border: OutlineInputBorder()),
-                  ),
-                  fHight10,
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        hintText: "Employee Name",
-                        border: OutlineInputBorder()),
-                  ),
-                  fHight20,
-                  DropdownButtonFormField(
-                    decoration: const InputDecoration(
+                      hintText: "Employee Name",
                       border: OutlineInputBorder(),
                     ),
-                    hint: const Text("Select Designation"),
-                    items: const [],
-                    onChanged: (value) {},
                   ),
                   fHight20,
                   ElevatedButton(
@@ -90,7 +81,15 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                       ),
                       fixedSize: const Size.fromHeight(50),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<EmployeesBloc>(context).add(
+                        EmployeesSearchEvent(
+                          employeeName: EmployeesControlls
+                              .seachEmployeeController.text
+                              .trim(),
+                        ),
+                      );
+                    },
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -102,6 +101,21 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
 
                   //bloc implemented
                   BlocConsumer<EmployeesBloc, EmployeesState>(
+                    builder: (context, state) {
+                      if (state is EmployeesLoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is EmployeeSearchState) {
+                        return _employeeList(data: state.searchData);
+                      } else if (state is EmployeesInitialState) {
+                        return _employeeList(data: state.employeeListData);
+                      } else {
+                        return Center(
+                          child: CustomTextWidget01(textValue: "Error found"),
+                        );
+                      }
+                    },
                     listener: (context, state) {
                       if (state is EmployeesInitialState) {
                         departmentMap = state.departmentMap;
@@ -117,90 +131,6 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
                         CustomTextWidget01(textValue: state.successMessage);
                       }
                     },
-                    builder: (context, state) {
-                      if (state is EmployeesInitialState) {
-                        return GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: state.employeeListData.length,
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 1),
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => EmployeesProfile(
-                                        data: state.employeeListData[index]),
-                                  ),
-                                );
-                              },
-                              child: Card(
-                                child: SizedBox(
-                                  width: 100,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          PopupMenuButton(
-                                            itemBuilder: (context) {
-                                              return [
-                                                const PopupMenuItem(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(Icons.edit),
-                                                      fWidth10,
-                                                      Text("Edit"),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const PopupMenuItem(
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(Icons.delete),
-                                                      fWidth10,
-                                                      Text("Delete"),
-                                                    ],
-                                                  ),
-                                                )
-                                              ];
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                      CircleAvatar(
-                                        radius: mWidth! * .08,
-                                        backgroundImage: NetworkImage(
-                                          state.employeeListData[index]
-                                              .imageFile,
-                                        ),
-                                      ),
-                                      fHight10,
-                                      CustomTextWidget01(
-                                          textValue: state
-                                              .employeeListData[index].userName,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500),
-                                      fHight5,
-                                      CustomTextWidget01(
-                                        textValue: state
-                                            .employeeListData[index].department,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
                   )
                 ],
               )),
@@ -208,4 +138,79 @@ class _AllEmployeesScreenState extends State<AllEmployeesScreen> {
         // drawer: const DrawerCardWidget(),
         );
   }
+}
+
+Widget _employeeList({required List<NewEmployeeModelEntity> data}) {
+  return GridView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    itemCount: data.length,
+    shrinkWrap: true,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2, childAspectRatio: 1),
+    itemBuilder: (context, index) {
+      return InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => EmployeesProfile(data: data[index]),
+            ),
+          );
+        },
+        child: Card(
+          child: SizedBox(
+            width: 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    PopupMenuButton(
+                      itemBuilder: (context) {
+                        return [
+                          const PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Icon(Icons.edit),
+                                fWidth10,
+                                Text("Edit"),
+                              ],
+                            ),
+                          ),
+                          const PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Icon(Icons.delete),
+                                fWidth10,
+                                Text("Delete"),
+                              ],
+                            ),
+                          )
+                        ];
+                      },
+                    )
+                  ],
+                ),
+                CircleAvatar(
+                  radius: mWidth! * .08,
+                  backgroundImage: NetworkImage(
+                    data[index].imageFile,
+                  ),
+                ),
+                fHight10,
+                CustomTextWidget01(
+                    textValue: data[index].userName,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+                fHight5,
+                CustomTextWidget01(
+                  textValue: data[index].department,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }

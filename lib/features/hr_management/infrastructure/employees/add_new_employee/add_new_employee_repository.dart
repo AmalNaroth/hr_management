@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hr_management_new/core/resources/data_state.dart';
 import 'package:hr_management_new/features/hr_management/domain/employees/all_employees/new_employee_add/models/new_employee_model.dart';
 import 'package:hr_management_new/features/hr_management/domain/employees/all_employees/new_employee_services.dart';
+import 'package:hr_management_new/features/hr_management/domain/entities/new_employee_model.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(as: NewEmployeeAddServices)
@@ -21,7 +22,7 @@ class NewEmployeeAddRepository implements NewEmployeeAddServices {
   }
 
   @override
-  Future<DataState> getDataFromDB() async {
+  Future<DataState<List<NewEmployeeModelEntity>>> getDataFromDB() async {
     try {
       final data =
           await FirebaseFirestore.instance.collection("New Employees").get();

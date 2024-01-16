@@ -111,19 +111,35 @@ class _HolidayScreenState extends State<HolidayScreen> {
           decoration: BoxDecoration(color: Colors.redAccent),
           children: [
             TableCell(
-                child: Padding(padding: EdgeInsets.all(8.0), child: Text("#"))),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("#"),
+              ),
+            ),
             TableCell(
-                child: Padding(
-                    padding: EdgeInsets.all(8.0), child: Text("Title"))),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Title"),
+              ),
+            ),
             TableCell(
-                child: Padding(
-                    padding: EdgeInsets.all(8.0), child: Text("Holiday"))),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Holiday"),
+              ),
+            ),
             TableCell(
-                child:
-                    Padding(padding: EdgeInsets.all(8.0), child: Text("Day"))),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Day"),
+              ),
+            ),
             TableCell(
-                child: Padding(
-                    padding: EdgeInsets.all(8.0), child: Text("Action"))),
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text("Action"),
+              ),
+            ),
           ],
         ),
         ...List.generate(
@@ -140,18 +156,23 @@ class _HolidayScreenState extends State<HolidayScreen> {
               TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(holidayData[index].holidayTitle)),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(holidayData[index].holidayTitle),
+                ),
               ),
-               TableCell(
+              TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Padding(
-                    padding: const EdgeInsets.all(8.0), child: Text(holidayData[index].holidayData),),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(holidayData[index].holidayData),
+                ),
               ),
-               TableCell(
+              TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,
                 child: Padding(
-                    padding: const EdgeInsets.all(8.0), child: Text(holidayData[index].holiday),),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(holidayData[index].holiday),
+                ),
               ),
               TableCell(
                 verticalAlignment: TableCellVerticalAlignment.middle,

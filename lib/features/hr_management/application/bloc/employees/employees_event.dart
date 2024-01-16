@@ -15,3 +15,8 @@ final class EmployeesNewSubmitEvent extends EmployeesEvent {
   EmployeesNewSubmitEvent(
       {required this.newEmployeeData, required this.imageData});
 }
+
+final class EmployeesSearchEvent extends EmployeesEvent {
+  String employeeName;
+  EmployeesSearchEvent({required this.employeeName});
+}

@@ -36,6 +36,8 @@ class EmployeesControlls {
   static set newSelectedDesignationSet(String value) {
     newSelectedDesignation = value;
   }
+
+  static TextEditingController seachEmployeeController = TextEditingController();
 }
 
 class DesignationControllers {

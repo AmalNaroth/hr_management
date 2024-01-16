@@ -16,6 +16,8 @@ final class EmployeesInitialState extends EmployeesState {
 
 final class EmployeesNewSubmit extends EmployeesState {}
 
+final class EmployeesLoadingState extends EmployeesState {}
+
 final class EmployeesSuccessState extends EmployeesState {
   String successMessage;
   EmployeesSuccessState({
@@ -28,4 +30,9 @@ final class EmployeeErrorState extends EmployeesState {
   EmployeeErrorState({
     required this.errorMessage,
   });
+}
+
+final class EmployeeSearchState extends EmployeesState {
+  List<NewEmployeeModelEntity> searchData;
+  EmployeeSearchState({required this.searchData});
 }

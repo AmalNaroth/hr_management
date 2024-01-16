@@ -41,7 +41,9 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
           }
           emit(
             EmployeesInitialState(
-                departmentMap: departmentMap, employeeListData: getResult.data),
+              departmentMap: departmentMap,
+              employeeListData: getResult.data ?? [],
+            ),
           );
         } else {
           print(result.error);
@@ -53,7 +55,9 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
       (event, emit) async {
         final imageUrl =
             await uplodImageStorage(event.imageData, event.newEmployeeData.id);
-        final uuid = await employeeInstance.newUserAuth(event.newEmployeeData.userEmail, event.newEmployeeData.userPassword);        
+        final uuid = await employeeInstance.newUserAuth(
+            event.newEmployeeData.userEmail,
+            event.newEmployeeData.userPassword);
         final instance = NewEmployeeModel(
             id: uuid.data,
             firstName: event.newEmployeeData.firstName,
@@ -79,7 +83,10 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
           for (DesignationEntity item in result.data!) {
             String department = item.department;
             String designation = item.name;
-            departmentMap.putIfAbsent(department, () => []);
+            departmentMap.putIfAbsent(
+              department,
+              () => [],
+            );
 
             if (!departmentMap[department]!.contains(designation)) {
               departmentMap[department]!.add(designation);
@@ -90,9 +97,49 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
           );
           emit(
             EmployeesInitialState(
-                departmentMap: departmentMap, employeeListData: getResult.data),
+              departmentMap: departmentMap,
+              employeeListData: getResult.data ?? [],
+            ),
           );
         } else {}
+      },
+    );
+
+    on<EmployeesSearchEvent>(
+      (event, emit) async {
+        try {
+          print(event.employeeName);
+          emit(EmployeesLoadingState());
+
+          final getResult = await employeeInstance.getDataFromDB();
+
+          if (getResult is DataSuccess) {
+            List<NewEmployeeModelEntity> employeeListData = getResult.data!
+                .where(
+                  (item) =>
+                      item.firstName.toLowerCase() ==
+                      event.employeeName.toLowerCase(),
+                )
+                .toList();
+            emit(
+              EmployeeSearchState(searchData: employeeListData),
+            );
+          } else {
+            // Handle other cases like DataError or other unexpected results
+            print("Error: Unexpected result from getDataFromDB");
+            emit(
+              EmployeeErrorState(errorMessage: "Unexpected result"),
+            );
+          }
+        } catch (err) {
+          // Catch any unexpected errors during the process
+          print("Error: $err");
+          emit(
+            EmployeeErrorState(
+              errorMessage: err.toString(),
+            ),
+          );
+        }
       },
     );
   }
