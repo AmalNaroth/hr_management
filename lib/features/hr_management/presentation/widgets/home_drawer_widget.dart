@@ -21,7 +21,7 @@ class DrawerCardWidget extends StatelessWidget {
               child: Column(
                 children: [
                   fHight20,
-                  buildHeader(context, name: "Naro Tech", email: "fijnf"),
+                  buildHeader(context, name: "Savari", email: "Tavel partner"),
                   fHight20,
                   buildMenuItem(context,
                       title: "Dashboard",
@@ -107,6 +107,7 @@ class DrawerCardWidget extends StatelessWidget {
         child: InkWell(
           child: Container(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 CircleAvatar(
                   radius: 30,
@@ -121,9 +122,13 @@ class DrawerCardWidget extends StatelessWidget {
                       style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      email,
-                      style: TextStyle(fontSize: 14, color: Colors.white),
+                    Row(
+                    children: [
+                       Text(
+                        email,
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                    ],
                     ),
                   ],
                 ),

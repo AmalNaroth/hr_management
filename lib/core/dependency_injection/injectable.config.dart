@@ -8,14 +8,16 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../features/hr_management/application/bloc/department/department_bloc.dart'
+import '../../features/hr_management/application/bloc/dashBoard/dash_board_bloc.dart'
     as _i14;
-import '../../features/hr_management/application/bloc/designation/designation_bloc.dart'
+import '../../features/hr_management/application/bloc/department/department_bloc.dart'
     as _i15;
-import '../../features/hr_management/application/bloc/employees/employees_bloc.dart'
+import '../../features/hr_management/application/bloc/designation/designation_bloc.dart'
     as _i16;
-import '../../features/hr_management/application/bloc/holiday/holiday_bloc.dart'
+import '../../features/hr_management/application/bloc/employees/employees_bloc.dart'
     as _i17;
+import '../../features/hr_management/application/bloc/holiday/holiday_bloc.dart'
+    as _i18;
 import '../../features/hr_management/application/bloc/sign_in/signin_bloc.dart'
     as _i13;
 import '../../features/hr_management/domain/employees/all_employees/new_employee_services.dart'
@@ -59,17 +61,22 @@ _i1.GetIt $initGetIt(
   gh.lazySingleton<_i11.SignInServices>(() => _i12.SignInRepository());
   gh.factory<_i13.SigninBloc>(
       () => _i13.SigninBloc(get<_i11.SignInServices>()));
-  gh.factory<_i14.DepartmentBloc>(
-      () => _i14.DepartmentBloc(get<_i3.DepartmentServices>()));
-  gh.factory<_i15.DesignationBloc>(() => _i15.DesignationBloc(
+  gh.factory<_i14.DashBoardBloc>(() => _i14.DashBoardBloc(
+        get<_i9.NewEmployeeAddServices>(),
+        get<_i3.DepartmentServices>(),
+        get<_i5.DesignationService>(),
+      ));
+  gh.factory<_i15.DepartmentBloc>(
+      () => _i15.DepartmentBloc(get<_i3.DepartmentServices>()));
+  gh.factory<_i16.DesignationBloc>(() => _i16.DesignationBloc(
         get<_i5.DesignationService>(),
         get<_i3.DepartmentServices>(),
       ));
-  gh.factory<_i16.EmployeesBloc>(() => _i16.EmployeesBloc(
+  gh.factory<_i17.EmployeesBloc>(() => _i17.EmployeesBloc(
         get<_i5.DesignationService>(),
         get<_i9.NewEmployeeAddServices>(),
       ));
-  gh.factory<_i17.HolidayBloc>(
-      () => _i17.HolidayBloc(get<_i7.HolidayServices>()));
+  gh.factory<_i18.HolidayBloc>(
+      () => _i18.HolidayBloc(get<_i7.HolidayServices>()));
   return get;
 }

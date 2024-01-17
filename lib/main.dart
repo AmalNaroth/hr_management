@@ -5,6 +5,7 @@ import 'package:hr_management_new/core/dependency_injection/injectable.dart';
 import 'package:hr_management_new/core/util/navigator_service/navigator_services.dart';
 import 'package:hr_management_new/config/routes/app_routes.dart';
 import 'package:hr_management_new/config/size_utils/size_utils.dart';
+import 'package:hr_management_new/features/hr_management/application/bloc/dashBoard/dash_board_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/department/department_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/designation/designation_bloc.dart';
 import 'package:hr_management_new/features/hr_management/application/bloc/employees/employees_bloc.dart';
@@ -25,7 +26,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     final _result = MediaQuery.of(context).size;
@@ -42,11 +43,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<DesignationBloc>(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (context) => getIt<EmployeesBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<HolidayBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<DashBoardBloc>(),
         ),
       ],
       child: MaterialApp(
