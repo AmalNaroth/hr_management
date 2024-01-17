@@ -17,7 +17,7 @@ class DrawerCardWidget extends StatelessWidget {
         child: ListView(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
                   fHight20,
@@ -35,14 +35,14 @@ class DrawerCardWidget extends StatelessWidget {
                       title: "Holydays",
                       icon: Icons.dashboard,
                       pages: Pages.Holydays),
-                  buildMenuItem(context,
-                      title: "Leaves",
-                      icon: Icons.dashboard,
-                      pages: Pages.Leaves),
-                  buildMenuItem(context,
-                      title: "Attendence",
-                      icon: Icons.dashboard,
-                      pages: Pages.Attendence),
+                  // buildMenuItem(context,
+                  //     title: "Leaves",
+                  //     icon: Icons.dashboard,
+                  //     pages: Pages.Leaves),
+                  // buildMenuItem(context,
+                  //     title: "Attendence",
+                  //     icon: Icons.dashboard,
+                  //     pages: Pages.Attendence),
                   buildMenuItem(context,
                       title: "Department",
                       icon: Icons.dashboard,
@@ -52,7 +52,7 @@ class DrawerCardWidget extends StatelessWidget {
                       icon: Icons.dashboard,
                       pages: Pages.Designation),
                   fHight20,
-                  Divider(
+                  const Divider(
                     color: Colors.white,
                     thickness: 1,
                   ),
@@ -68,7 +68,7 @@ class DrawerCardWidget extends StatelessWidget {
 
   Widget buildMenuItem(BuildContext context,
       {required String title, required IconData icon, required Pages pages}) {
-    final Color color = Colors.white;
+    const Color color = Colors.white;
     return Material(
       color: Colors.transparent,
       child: ListTile(
@@ -105,35 +105,35 @@ class DrawerCardWidget extends StatelessWidget {
       Material(
         color: Colors.transparent,
         child: InkWell(
-          child: Container(
+          child: SizedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30,
-                  child: FlutterLogo(),
+                  backgroundImage: NetworkImage("https://images.unsplash.com/photo-1503220317375-aaad61436b1b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       name,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 20, color: Colors.white),
                     ),
                     const SizedBox(height: 4),
                     Row(
                     children: [
                        Text(
                         email,
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                        style: const TextStyle(fontSize: 14, color: Colors.white),
                       ),
                     ],
                     ),
                   ],
                 ),
-                Spacer(),
-                CircleAvatar(
+                const Spacer(),
+                const CircleAvatar(
                   radius: 24,
                   backgroundColor: Color.fromRGBO(30, 60, 168, 1),
                   child: Icon(Icons.add_comment_outlined, color: Colors.white),
